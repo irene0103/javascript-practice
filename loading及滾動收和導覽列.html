@@ -370,7 +370,7 @@
     let navbar = document.querySelector('.navbar'),
         lastScrollY = 0;
     window.addEventListener('scroll', function () {
-        var st = this.scrollY;
+        let st = this.scrollY;
         // 判斷是向上捲動，而且捲軸超過 200px
         if (st < lastScrollY) {
             navbar.classList.remove('hideUp');

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分頁系統</title>
+    <!-- jQuery連結 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <!-- SimplePagination連結 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplePagination.js/1.6/jquery.simplePagination.min.js"></script>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    body{
+        background-color: antiquewhit;
+    }
+    h1{
+        font-size: 50px;
+        text-align: center;
+        color: black;
+    }
+    #list-wrapper{
+        margin: 20px auto;
+        width: 80%;
+        height: 150px;
+    }
+    .list-item{
+        width: 100%;
+        height: 40px;
+        background-color: wheat;
+        border-radius: 10px;
+        margin: 10px auto;
+        padding: 0px 10px;
+        line-height: 30px;
+        box-sizing: border-box;
+        font-size: 18px;
+    }
+    .list-item:hover{
+        box-shadow: 3px 3px 0px rgb(170, 109, 12);
+    }
+
+    /* 頁面按鈕 */
+    .simple-pagination{
+        margin: auto;
+        width: 80%;
+    }
+    .simple-pagination ul{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .simple-pagination li a{
+        background-color: rgb(185, 226, 254);
+        border-radius: 50%;
+        font-size: 20px;
+        padding: 10px 15px;
+        margin: 0 5px;
+        text-decoration: none;
+        color: black;
+    }
+    .simple-pagination li a:hover{
+        background-color: rgb(21, 118, 167);
+        color: white;
+    }
+    .simple-pagination .current{
+        background-color: rgb(21, 118, 167);
+        border-radius: 50%;
+        font-size: 20px;
+        text-align: center;
+        line-height: 30px;
+        margin: 0 5px;
+        padding: 10px 15px;
+        color: white;
+    }
+    .simple-pagination .prev, .simple-pagination .next,.simple-pagination .prev:hover, .simple-pagination .next:hover{
+        background: none;
+        border: none;
+        color: black;
+    }
+    
+
+</style>
+<body>
+    <h1>分頁系統</h1>
+    <!-- 所有項目 -->
+    <div id="list-wrapper">
+        <!-- 項目 -->
+        <div class="list-item">
+            <p>Lorem ipsum dolor sit amet.11</p>
+        </div>
+        <div class="list-item">
+            <p>Lorem ipsum dolor sit amet.22</p>
+        </div>
+        <div class="list-item">
+            <p>Lorem ipsum dolor sit amet.33</p>
+        </div>
+        <div class="list-item">
+            <p>Lorem ipsum dolor sit amet.44</p>
+        </div>
+        <div class="list-item">
+            <p>Lorem ipsum dolor sit amet.55</p>
+        </div>
+        <div class="list-item">
+            <p>Lorem ipsum dolor sit amet.66</p>
+        </div>
+        <div class="list-item">
+            <p>Lorem ipsum dolor sit amet.77</p>
+        </div>
+        <div class="list-item">
+            <p>Lorem ipsum dolor sit amet.88</p>
+        </div>
+        <div class="list-item">
+            <p>Lorem ipsum dolor sit amet.99</p>
+        </div>
+        <div class="list-item">
+            <p>Lorem ipsum dolor sit amet.1010</p>
+        </div>
+    </div>
+    <!-- 頁數 -->
+    <div id="pagination-container">
+        
+    </div>
+    <!-- jQuery -->
+    <script>
+        //每個頁面要顯示幾個項目
+        var perPage = 3;
+        //總共有多少個項目
+        var numItems = $(".list-item").length;
+        
+        $(".list-item").slice(perPage).hide();
+
+        $("#pagination-container").pagination({
+            items:numItems,
+            itemsOnPage:perPage,
+            prevText: "&laquo;",
+			nextText: "&raquo;",
+            onPageClick:function(pageNumber){
+                //計算起始以及結束
+                var from = perPage*(pageNumber-1);
+                var to = from + perPage;
+                $(".list-item").hide().slice(from , to).show();
+            }
+            
+        })
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>彭彭JavaScript :AJAX 網路連線實務</title>
+</head>
+<body>
+    <h3>AJAX 網路連線實務 / XHR</h3>
+    <button type="button" onclick="getData()">連線取得資料</button>
+    <div id="result"></div>
+    <script>
+        function getData() {
+            fetch("https://cwpeng.github.io/live-records-samples/data/products.json").then(function(response){
+                return response.json();
+            }).then(function(data){
+                let result = document.getElementById('result');
+                result.innerHTML=""; //先把畫面清空
+                for(let i = 0 ; i < data.length ; i++){
+                  let product = data[i];
+                    console.log(product.description);
+                    result.innerHTML+='<div>'+product.name+'<br/>'+product.price+'<br/>'+product.description+'</div>';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

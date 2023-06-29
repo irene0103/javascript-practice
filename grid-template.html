@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .grid_container {
+            width: 80%;
+            height: 400px;
+            margin: auto;
+            outline: 3px solid blue;
+            display: grid;
+            flex-wrap: wrap;
+            grid-auto-columns: 80px;
+            grid-auto-flow: column;
+            padding: 10px;
+        }
+
+        .box_red {
+            background-color: red;
+            margin: 10px;
+        }
+
+        .box_green {
+            background-color: green;
+            margin: 10px;
+        }
+
+        .box_yellow {
+            
+            background-color: yellow;
+            margin: 10px;
+        }
+
+        .box_blue {
+            background-color: blue;
+            margin: 10px;
+        }
+
+        .box_deepBlue {
+            margin: 10px;
+            background-color: deepskyblue;
+        }
+
+        @media (max-width:700px) {
+            .grid_container {
+            
+            grid-template-columns: repeat(2,1fr);
+        }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="grid_container">
+        <div class="box_red"></div>
+        <div class="box_green"></div>
+        <div class="box_yellow"></div>
+        <div class="box_blue"></div>
+        <div class="box_deepBlue"></div>
+    </div>
+</body>
+
+</html>

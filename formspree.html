@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        form{
+            width: 90%;
+            max-width: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(241, 201, 201);
+            padding: 10px;
+            margin: auto;
+        }
+        form h1{
+            color: darkred;
+        }
+        label{
+            color: darkred;
+            margin: 5px auto;
+        }
+        input, textarea{
+            outline: none;
+            width: 90%;
+            max-width: 270px;
+            min-width: 270px;
+            border: none;
+            border-radius: 5px;
+            padding: 5px;
+        }
+        button{
+            background-color: brown;
+            width: 150px;
+            border: none;
+            padding: 5px 10px;
+            color:#fff;
+            margin: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- modify this form HTML and place wherever you want your form -->
+<form id="my-form" action="https://formspree.io/f/xoqzbylr" method="POST">
+    <h1>Contact us!</h1>
+    <label>Email:</label>
+    <input type="email" name="email" placeholder="your@email.com" required />
+    <label>Phone:</label>
+    <input type="phone" name="phone" />
+    <label>Message:</label>
+    <textarea name="message" id="message" rows="4"></textarea>
+    <button id="my-form-button">Submit</button>
+    <p id="my-form-status"></p>
+  </form>
+  <!-- Place this script at the end of the body tag -->
+  <script>
+    // https://help.formspree.io/hc/en-us/articles/360013470814-Submit-forms-with-JavaScript-AJAX-
+      var form = document.getElementById("my-form");
+      
+      async function handleSubmit(event) {
+        event.preventDefault();
+        var status = document.getElementById("my-form-status");
+        var data = new FormData(event.target);
+        fetch(event.target.action, {
+          method: form.method,
+          body: data,
+          headers: {
+              'Accept': 'application/json'
+          }
+        }).then(response => {
+          if (response.ok) {
+            alert("提交成功!");
+            form.reset()
+          } else {
+            response.json().then(data => {
+              if (Object.hasOwn(data, 'errors')) {
+                status.innerHTML = data["errors"].map(error => error["message"]).join(", ")
+              } else {
+                alert('有東西出錯了!')
+              }
+            })
+          }
+        }).catch(error => {
+          alert('有東西出錯了!')
+        });
+      }
+      form.addEventListener("submit", handleSubmit)
+  </script>
+</body>
+</html>

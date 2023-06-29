@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+        }
+        body{
+            background-color: #f3f3f3;
+        }
+        header{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+        }
+        main{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        main .list{
+            width: 100%;
+            max-width: 768px;
+            height: 295px;
+            background-color: #fff;
+            margin: 25px auto;
+        }
+        main .list .item{
+            padding: 15px;
+            border-bottom: 1px solid #ccc;
+        }
+        main .list .item:hover{
+            background-color: rgba(0,0,0,0.05);
+        }
+        main .list .item:last-of-type{
+            border-bottom: 1px solid #ccc;
+        }
+        .pagenumbers{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        .pagenumbers button{
+            width: 50px;
+            height: 50px;
+            background-color: #ffffff;
+            border: 2px solid #44aaee;
+            outline: none;
+            cursor: pointer;
+            margin: 5px;
+            transition: 0.4s;
+            font-size: 18px;
+            text-shadow: 0px 0px 4px rdba(0,0,0,0.2);
+            box-shadow: 0px 0px 4px rdba(0,0,0,0.2);
+            border-radius: 50px;
+        }
+        .pagenumbers button:hover{
+            background-color: #44aaee;
+            color: #fff;
+        }
+        .pagenumbers button.active{
+            background-color: #44aaee;
+            color: #fff;
+            box-shadow: inset 0px 0px 4px rdba(0,0,0,0.2);
+        }
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Users</h1>
+    </header>
+    <main>
+        <div class="list" id="list"></div>
+        <div class="pagenumbers" id="pagination"></div>
+    </main>
+    <script>
+        const list_items = [
+            "item 1",
+            "item 2",
+            "item 3",
+            "item 4",
+            "item 5",
+            "item 6",
+            "item 7",
+            "item 8",
+            "item 9",
+            "item 10",
+            "item 11",
+            "item 12",
+            "item 13",
+            "item 14",
+            "item 15",
+            "item 16",
+            "item 17",
+            "item 18",
+            "item 19",
+            "item 20",
+            "item 21",
+            "item 22",
+            "item 23",
+            "item 24",
+            "item 25",
+            "item 26",
+            "item 27",
+            "item 28",
+            "item 1",
+            "item 2",
+            "item 3",
+            "item 4",
+            "item 5",
+        ];
+        const list_element = document.getElementById('list');
+        const pagination_element = document.getElementById('pagination');
+
+        let current_page = 1;
+        let rows = 6;
+        function DisplayList(items, container, rows_per_page,page) {
+            // console.log(DisplayList);
+            container.innerHTML=''; //清空 container 元素的内容
+            page--; //index從0開始，但頁碼從1開始
+
+            let start = rows_per_page * page;
+            let end = start + rows_per_page;
+            let paginatedItems = items.slice(start,end);
+            for(let i = 0; i< paginatedItems.length; i++){
+                // console.log(items[i]);
+                let item = paginatedItems[i];
+
+                let item_element = document.createElement('div');
+                item_element.classList.add('item');
+                item_element.innerText = item;
+
+                container.appendChild(item_element);
+            }
+            
+        }
+
+        function SetupPagination(ths,container,rows_per_page) {
+            container.innterHTML = '';
+
+            let page_count = Math.ceil(ths.length / rows_per_page);
+            // 會回傳大於等於所給數字的最小整數，以確定所需的總頁數
+            for(let i = 1 ; i< page_count + 1 ; i++){
+               let btn = PaginationButton(i,ths);
+               container.appendChild(btn);
+            }
+        }
+
+        function PaginationButton(page,ths) {
+            let button = document.createElement('button');
+            button.innerText = page;
+            if(current_page == page) button.classList.add('active');
+            button.addEventListener('click',function(){
+                current_page = page;
+                DisplayList(ths,list_element,rows,current_page);
+
+                let current_btn = document.querySelector('.pagenumbers button.active');
+                current_btn.classList.remove('active');
+                button.classList.add('active');
+
+            });
+            return button;
+        }
+
+        DisplayList(list_items, list_element,rows,current_page);
+        SetupPagination(list_items, pagination_element, rows);
+    </script>
+</body>
+</html>
