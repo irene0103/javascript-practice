@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <p><input type="text" v-model="input"><a href="javascript:;" @click="createHandler">Create</a></p>
+        <ol>
+            <li v-for="content in contents">
+                {{content.content}}
+                <a href="javascript:;">Update</a>
+                <a href="javascript:;">Delete</a>
+            </li>
+        </ol>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-router@4.2.2/dist/vue-router.global.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuex@4.1.0/dist/vuex.global.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.21.1/dist/axios.min.js"></script>
+    <script>
+
+        Vue.createApp({
+            data() {
+                return {
+                    contents:[],
+                    input:'',
+                }
+            },
+            methods: {
+                createHandler(){
+                    console.log('CLICK',this.input)
+                    axios.post('http://localhost:3000/contents',{
+                        content: this.input
+                    }).then((res)=>{
+                    console.log(res);
+                })
+                }
+            },
+            mounted() {
+                axios.get('http://localhost:3000/contents').then((res)=>{
+                    this.contents = res.data;
+                })
+            },
+        }).mount('#app')
+    </script>
+</body>
+</html>
